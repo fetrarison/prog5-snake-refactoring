@@ -4,6 +4,33 @@ import java.util.*;
 import java.io.IOException;
 
 /**
+ *
+ * SPECS :
+ * Characters :
+ * - Snake
+ * - Food
+ * - Score
+ * - Screen
+ * - Direction
+ *
+ * Rules :
+ * - Tant que le jeu lancé :
+ *  Si => utilisateur clic sur "a" + entré et direction non "RIGHT" va gauche
+ *  Si => utilisateur clic sur "d" + entré et direction non "LEFT" va droite
+ *  Si => utilisateur clic sur "w" + entré et direction non "DOWN" va haut
+ *  Si => utilisateur clic sur "s" + entré et direction non "UP" va bas
+ *  Si => Sakafo azo, mihalava Score++
+ *  Si => bibilave midona amin'ny vatany/"sisinà screen" à une lapse de temps
+ *          => mort
+ *          => Game over + show score
+ *          => Reset score/bibilave/position
+ *
+ * Pattern :
+ * - Observer => Observer direction snake
+ * - Factory => Conrétiser les objets
+ * - State => Snake (isMaty), Sakafo (isLany), Jeu (isTapitra)
+ * - Command => execute (start, change direction)
+ *
  * EXERCICE DE REFACTORING
  *
  * Ce code fonctionne, mais viole de nombreux principes de bonne pratique.
@@ -31,9 +58,9 @@ import java.io.IOException;
  */
 public class BadSnake {
     /**
-     * Mouvement 
-     * 
-     * h => Height 
+     * Mouvement
+     *
+     * h => Height
      * d => Direction
      * k => Position
      */
@@ -59,7 +86,7 @@ public class BadSnake {
         Random r = new Random();
         int[] f = new int[]{r.nextInt(sh - 2) + 1, r.nextInt(sw - 2) + 1};  // 'f' = food?
 
-        String d = "R";
+        String d = "R"; // Direction
         int sc = 0; // Score
 
         while (true) {
@@ -79,7 +106,7 @@ public class BadSnake {
                 return;
             }
 
-           // Vérification de collision en O(n) — on pourrait utiliser un Set pour obtenir du O(1)
+            // Vérification de collision en O(n) — on pourrait utiliser un Set pour obtenir du O(1)
             for (int i = 0; i < s.size(); i++) {
                 int[] b = s.get(i);
                 if (hd[0] == b[0] && hd[1] == b[1]) {
@@ -116,16 +143,16 @@ public class BadSnake {
                     }
 
                     if (!drawn) {
-                        if (i == 0 || j == 0 || i == sh - 1 || j == sw - 1) 
+                        if (i == 0 || j == 0 || i == sh - 1 || j == sw - 1)
                             sb.append("X");
-                        else 
+                        else
                             sb.append(" ");
                     }
                 }
                 sb.append("\n");
             }
 
-            System.out.print("\033[H\033[2J");  
+            System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.println(sb.toString());
             System.out.println("Score: " + sc);
