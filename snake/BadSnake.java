@@ -48,6 +48,8 @@ import java.io.IOException;
  * 9. Aucune validation des entrées utilisateur
  * 10. Séquences d’échappement du terminal codées en dur
  *
+ *
+ *
  * AMÉLIORATIONS SUGGÉRÉES :
  * - Créer des classes : Game, Snake, Food, Position, Direction (enum)
  * - Extraire des constantes : SCREEN_HEIGHT, SCREEN_WIDTH, TICK_DELAY
